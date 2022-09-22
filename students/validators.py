@@ -9,7 +9,7 @@ def valid_email_domain(value):
         if domain in value:
             break
     else:
-        raise ValidationError('Email {value} is incorrect address.')
+        raise ValidationError(f'Email <{value}> is incorrect address.')
 
 
 @deconstructible

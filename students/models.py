@@ -1,13 +1,15 @@
 import datetime
 
 from django.core.validators import MinLengthValidator
-from django.db import models # noqa
+from django.db import models
+
 from faker import Faker
 
-from .validators import valid_email_domain, ValidEmailDomain
+from .validators import ValidEmailDomain
+# from .validators import valid_email_domain
 
 
-VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com','@test.com')
+VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 
 
 class Student(models.Model):
@@ -21,10 +23,14 @@ class Student(models.Model):
         verbose_name='last name',
         validators=[MinLengthValidator(2)],
         error_messages={'min_length': 'last_name field value less than two symbols'}
-
     )
     birthday = models.DateField(default=datetime.date.today, null=True, blank=True)
+
+    # we use validation class here
     email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST)])
+
+    # we use validation function here
+    # email = models.EmailField(validators=[valid_email_domain(VALID_DOMAIN_LIST)])
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -45,5 +51,5 @@ class Student(models.Model):
             try:
                 st.full_clean()
                 st.save()
-            except:
+            except Exception:
                 print(f'Incorrect data {first_name} {last_name} {email} {birthday}')

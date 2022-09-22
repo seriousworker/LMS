@@ -1,9 +1,27 @@
 django==4.1.1
+
+# gives addition enhanced shell_plus and may show all urls
 django-extensions==3.2.1
+
+# python code styler according to PEP8
 flake8==5.0.4
-flake8-builtins==1.5.3
-flake8-import-order==0.18.1
 flake8-polyfill==1.0.2
+
+# checks that variables' names are neither builtins nor python operators
+flake8-builtins==1.5.3
+
+# gives proper modules imports
+flake8-import-order==0.18.1
+
+
+# enhanced python shell
 ipython==8.5.0
+
+# checks names by PEP8
 pep8-naming==0.13.2
+
+# reads variables from the .env and make there as environment variables
 python-dotenv==0.21.0
+
+# creates fake data in db
+Faker==14.2.0

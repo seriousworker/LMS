@@ -9,9 +9,11 @@ def index(request):
     s = '<table>'
 
     for student in students:
-        s += f'<tr><td>{student.first_name}</td><td>{student.last_name}</td><td>{student.email}</td></tr><br>'
+        s += f'<tr><td>{student.first_name}</td>' \
+             f'<td>{student.last_name}</td>' \
+             f'<td>{student.email}</td>' \
+             f'</tr>'
 
-    s += '<table>'
+    s += '</table>'
     response = HttpResponse(s)
     return response
-
