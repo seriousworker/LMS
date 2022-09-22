@@ -6,6 +6,7 @@ from django.db import models
 from faker import Faker
 
 from .validators import ValidEmailDomain
+
 # from .validators import valid_email_domain
 
 

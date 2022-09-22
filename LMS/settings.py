@@ -10,11 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 from os import getenv
-from dotenv import load_dotenv
-
 from pathlib import Path
 
-import groups.apps
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +25,7 @@ load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = getenv('DJANGO_SECRET_KEY')
 DEBUG = getenv('DJANGO_DEBUG').strip().lower() in ('true', '1', 'on')
-ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS', '').split(' ')
+ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS').split()
 
 
 # Application definition
