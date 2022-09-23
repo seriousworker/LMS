@@ -5,7 +5,7 @@ from django.db import models
 
 from faker import Faker
 
-from .validators import ValidEmailDomain
+from .validators import ValidEmailDomain, validate_unique_email
 
 # from .validators import valid_email_domain
 
@@ -28,7 +28,7 @@ class Student(models.Model):
     birthday = models.DateField(default=datetime.date.today, null=True, blank=True)
 
     # we use validation class here
-    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST)])
+    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
 
     # we use validation function here
     # email = models.EmailField(validators=[valid_email_domain(VALID_DOMAIN_LIST)])
