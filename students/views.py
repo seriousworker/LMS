@@ -1,11 +1,11 @@
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
-from django.shortcuts import render     # noqa
+from django.shortcuts import render
 
 from students.forms import CreateStudentForm
+from students.forms import UpdateStudentForm
 from students.models import Student
-from students.utils import qs2html
 
 from webargs.djangoparser import use_args
 from webargs.fields import Str
@@ -30,20 +30,18 @@ def get_students(request, args):
             Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
         )
 
-    html_form = ('\n'
-                 '        <form method="get">\n'
-                 '              <label for="first_name">First name:</label>\n'
-                 '              <input type="text" id="first_name" name="first_name" placeholder="John"><br><br>\n'
-                 '              <label for="last_name">Last name:</label>\n'
-                 '              <input type="text" id="last_name" name="last_name" placeholder="Doe"><br><br>\n'
-                 '              <input type="submit" value="Submit">\n'
-                 '        </form> \n'
-                 '        ')
+    return render(request=request,
+                  template_name='templates/students/list.html',
+                  context={
+                      'title': 'List of students',
+                      'students': students,
+                  })
 
-    html = qs2html(students)
 
-    response = HttpResponse(html_form + html)
-    return response
+def detail_student(request, student_id):
+    student = Student.objects.get(pk=student_id)
+
+    return render(request, 'students/detail.html', {'student': student})
 
 
 def create_student(request):
@@ -62,7 +60,32 @@ def create_student(request):
                  f'            <table>    \n'
                  f'                {form.as_table()}\n'
                  f'            </table>\n'
-                 f'            <input type="submit" value="Submit">\n'
+                 f'            <input type="submit" value="Create">\n'
+                 f'        </form> \n'
+                 f'    ')
+
+    return HttpResponse(html_form)
+
+
+def update_student(request, student_id):
+    student = Student.objects.get(pk=student_id)
+
+    if request.method == 'GET':
+        form = UpdateStudentForm(instance=student)
+    elif request.method == 'POST':
+        form = UpdateStudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/students/')
+
+    token = get_token(request)
+    html_form = (f'\n'
+                 f'        <form method="post">\n'
+                 f'            <input type="hidden" name="csrfmiddlewaretoken" value="{token}"> \n'
+                 f'            <table>    \n'
+                 f'                {form.as_table()}\n'
+                 f'            </table>\n'
+                 f'            <input type="submit" value="Update">\n'
                  f'        </form> \n'
                  f'    ')
 

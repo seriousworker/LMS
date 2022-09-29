@@ -6,6 +6,7 @@ def qs2html(ql_list):
              f'<td>{record.last_name}</td>' \
              f'<td>{record.email}</td>' \
              f'<td>{record.phone}</td>' \
+             f'<td><a href="update/{record.pk}">Edit</a></td>'\
              f'</tr>'
 
     s += '</table>'
