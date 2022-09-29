@@ -5,12 +5,16 @@ from django.db import models
 
 from faker import Faker
 
-from .validators import ValidEmailDomain, validate_unique_email
+from .validators import ValidEmailDomain, ValidateOperatorCode, min_len_phone_number_validate, validate_unique_email, \
+    validate_unique_phone_number
 
 # from .validators import valid_email_domain
 
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
+VALID_PHONE_OPERATORS_CODES = ('38(067)', '38(098)', '38(063)', '38(050)', '38(039)',
+                               '38(093)', '38(096)', '38(097)', '38(068)', '38(092)',
+                               '38(094)', '38(091)', '38(066)', '38(095)', '38(099)')
 
 
 class Student(models.Model):
@@ -30,6 +34,14 @@ class Student(models.Model):
     # we use validation class here
     email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
 
+    phone = models.CharField(
+        max_length=16,
+        verbose_name='phone number',
+        validators=[min_len_phone_number_validate, ValidateOperatorCode(*VALID_PHONE_OPERATORS_CODES),
+                    validate_unique_phone_number],
+        error_messages={'max_length': 'Phone number is too long, must be 12 digits!'}
+    )
+
     # we use validation function here
     # email = models.EmailField(validators=[valid_email_domain(VALID_DOMAIN_LIST)])
 
@@ -48,9 +60,12 @@ class Student(models.Model):
             last_name = f.last_name()
             email = f'{first_name}.{last_name}{f.random.choice(VALID_DOMAIN_LIST)}'
             birthday = f.date()
-            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email)
+            phone = f'{f.random.choice(VALID_PHONE_OPERATORS_CODES)}{f.random.randint(100, 999)}-' \
+                    f'{f.random.randint(10, 99)}-{f.random.randint(10, 99)}'
+            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email, phone=phone)
+
             try:
                 st.full_clean()
                 st.save()
             except Exception:
-                print(f'Incorrect data {first_name} {last_name} {email} {birthday}')
+                print(f'Incorrect data {first_name} {last_name} {email} {birthday} {phone}')

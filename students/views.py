@@ -33,7 +33,7 @@ def get_students(request, args):
     html_form = ('\n'
                  '        <form method="get">\n'
                  '              <label for="first_name">First name:</label>\n'
-                 '              <input type="text" id="first_name" name="first_name" value="John"><br><br>\n'
+                 '              <input type="text" id="first_name" name="first_name" placeholder="John"><br><br>\n'
                  '              <label for="last_name">Last name:</label>\n'
                  '              <input type="text" id="last_name" name="last_name" placeholder="Doe"><br><br>\n'
                  '              <input type="submit" value="Submit">\n'
