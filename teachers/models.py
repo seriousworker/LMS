@@ -6,8 +6,6 @@ from django.db import models
 
 from faker import Faker
 
-# from groups.models import Group
-
 VALID_PHONE_OPERATORS_CODES = ('38(067)', '38(098)', '38(063)', '38(050)', '38(039)',
                                '38(093)', '38(096)', '38(097)', '38(068)', '38(092)',
                                '38(094)', '38(091)', '38(066)', '38(095)', '38(099)')
@@ -47,14 +45,6 @@ class Teacher(models.Model):
                         'min_length': 'Phone number is too short, must be 12 digits!'}
     )
 
-    # # to set up group as 'many-to-many' -- ASK TEACHER !!!--
-    # group = models.ManyToManyField(
-    #     'GroupST',
-    #     null=True,
-    #     on_delete=models.PROTECT,
-    #     verbose_name='Group',
-    # )
-
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
@@ -81,7 +71,3 @@ class Teacher(models.Model):
                 st.save()
             except Exception:
                 print(f'Incorrect data {first_name} {last_name} {birthday} {subject} {email} {phone}')
-
-
-# class GroupST(Group):
-#     pass

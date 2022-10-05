@@ -2,7 +2,7 @@
 
 import datetime
 from django.db import migrations, models
-import groups.validators
+import core.validators
 
 
 class Migration(migrations.Migration):
@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='group',
             name='group_creation_date',
-            field=models.DateField(default=datetime.date.today, validators=[groups.validators.validate_start_date]),
+            field=models.DateField(default=datetime.date.today, validators=[core.validators.validate_start_date]),
         ),
     ]

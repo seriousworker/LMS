@@ -3,6 +3,7 @@
 import datetime
 from django.db import migrations, models
 import students.validators
+import core.validators
 
 
 class Migration(migrations.Migration):
@@ -15,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='phone',
-            field=models.CharField(default=datetime.datetime(2022, 9, 27, 10, 31, 29, 838425, tzinfo=datetime.timezone.utc), error_messages={'max_length': 'Phone number is too long, must be 12 digits!', 'min_len_phone_number_validate': 'Phone number is too short, must be 12 digits!'}, max_length=16, validators=[students.validators.min_len_phone_number_validate, students.validators.validate_unique_phone_number], verbose_name='phone number'),
+            field=models.CharField(default=datetime.datetime(2022, 9, 27, 10, 31, 29, 838425, tzinfo=datetime.timezone.utc), error_messages={'max_length': 'Phone number is too long, must be 12 digits!', 'min_len_phone_number_validate': 'Phone number is too short, must be 12 digits!'}, max_length=16, validators=[core.validators.min_len_phone_number_validate, students.validators.validate_unique_phone_number], verbose_name='phone number'),
             preserve_default=False,
         ),
     ]
