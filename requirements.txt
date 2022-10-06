@@ -28,7 +28,3 @@ Faker==14.2.0
 
 # module which parses and validates HTTP request query string
 webargs==8.2.0
-
-# debug bar to catch sql requests
-django-debug-toolbar 3.7.0
-

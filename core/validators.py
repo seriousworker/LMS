@@ -3,7 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.utils.deconstruct import deconstructible
 
-from students.utils import clean_phone_number
+from .utils import clean_phone_number
 
 
 def valid_email_domain(value):

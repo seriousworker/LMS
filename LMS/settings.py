@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'debug_toolbar',
     'students.apps.StudentsConfig',
     'groups.apps.GroupsConfig',
     'teachers.apps.TeachersConfig',

@@ -1,7 +1,8 @@
+from core.utils import clean_phone_number
+
 from django import forms
 
 from students.models import Student
-from students.utils import clean_phone_number
 
 
 class CreateStudentForm(forms.ModelForm):

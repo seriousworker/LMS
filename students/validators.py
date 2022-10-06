@@ -1,7 +1,8 @@
+from core.utils import clean_phone_number
+
 from django.core.exceptions import ValidationError
 
 import students.models
-from students.utils import clean_phone_number
 
 
 def validate_unique_email(value):
