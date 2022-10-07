@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 from os import getenv
+from os import path
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -24,7 +26,7 @@ load_dotenv(BASE_DIR / '.env')
 
 
 SECRET_KEY = getenv('DJANGO_SECRET_KEY')
-DEBUG = getenv('DJANGO_DEBUG').strip().lower() in ('true', '1', 'on')
+DEBUG = getenv('DJANGO_DEBUG').rstrip().lower() in ('true', '1', 'on')
 ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS').split()
 
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'students.apps.StudentsConfig',
     'groups.apps.GroupsConfig',
+    'teachers.apps.TeachersConfig',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +60,11 @@ ROOT_URLCONF = 'LMS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'students'],
+        'DIRS': [
+            path.join(BASE_DIR, 'students'),
+            path.join(BASE_DIR, 'groups'),
+            path.join(BASE_DIR, 'teachers'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

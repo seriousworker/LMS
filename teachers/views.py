@@ -1,12 +1,13 @@
+
 from django.db.models import Q
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.shortcuts import render
 
-from groups.forms import CreateGroupForm
-from groups.forms import UpdateGroupForm
-from groups.models import Group
+from teachers.forms import CreateTeacherForm
+from teachers.forms import UpdateTeacherForm
+from teachers.models import Teacher
 
 from webargs.djangoparser import use_args
 from webargs.fields import Str
@@ -14,34 +15,41 @@ from webargs.fields import Str
 
 @use_args(
     {
-        'group_name': Str(required=False)
+        'first_name': Str(required=False),
+        'last_name': Str(required=False),
     },
     location='query'
 )
-def get_group(request, args):
-    groups = Group.objects.all()
+def get_teacher(request, args):
+    teachers = Teacher.objects.all()
 
-    if len(args) != 0 and args.get('group_name'):
-        groups = groups.filter(
-            Q(group_name=args.get('group_name', ''))
+    if len(args) != 0 and args.get('first_name') or args.get('last_name'):
+        teachers = teachers.filter(
+            Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
         )
 
-    return render(request,
-                  template_name='groups/list.html',
+    return render(request=request,
+                  template_name='templates/teachers/list.html',
                   context={
-                      'title': 'List of groups',
-                      'groups': groups
+                      'title': 'List of teachers',
+                      'teachers': teachers,
                   })
 
 
-def create_group(request):
+def detail_teacher(request, teacher_id):
+    teacher = Teacher.objects.get(pk=teacher_id)
+
+    return render(request, 'teachers/detail.html', {'teacher': teacher})
+
+
+def create_teacher(request):
     if request.method == 'GET':
-        form = CreateGroupForm()
-    if request.method == 'POST':
-        form = CreateGroupForm(request.POST)
-        if form.is_valid:
+        form = CreateTeacherForm()
+    elif request.method == 'POST':
+        form = CreateTeacherForm(request.POST)
+        if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/groups/')
+            return HttpResponseRedirect('/teachers/')
 
     token = get_token(request)
     html_form = (f'\n'
@@ -57,22 +65,16 @@ def create_group(request):
     return HttpResponse(html_form)
 
 
-def detail_group(request, group_id):
-    group = Group.objects.get(pk=group_id)
-
-    return render(request, 'groups/detail.html', {'group': group})
-
-
-def update_group(request, group_id):
-    group = Group.objects.get(pk=group_id)
+def update_teacher(request, teacher_id):
+    teacher = Teacher.objects.get(pk=teacher_id)
 
     if request.method == 'GET':
-        form = UpdateGroupForm(instance=group)
-    if request.method == 'POST':
-        form = UpdateGroupForm(request.POST, instance=group)
+        form = UpdateTeacherForm(instance=teacher)
+    elif request.method == 'POST':
+        form = UpdateTeacherForm(request.POST, instance=teacher)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/groups/')
+            return HttpResponseRedirect('/teachers/')
 
     token = get_token(request)
     html_form = (f'\n'
