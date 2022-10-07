@@ -1,16 +1,16 @@
 import datetime
 
+from core.validators import ValidEmailDomain
+from core.validators import ValidateOperatorCode
+from core.validators import min_len_phone_number_validate
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
 from faker import Faker
 
-# from groups.models import Group
-from .validators import ValidEmailDomain, ValidateOperatorCode, min_len_phone_number_validate, validate_unique_email, \
-    validate_unique_phone_number
-
-# from .validators import valid_email_domain
-
+from .validators import validate_unique_email
+from .validators import validate_unique_phone_number
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 VALID_PHONE_OPERATORS_CODES = ('38(067)', '38(098)', '38(063)', '38(050)', '38(039)',
@@ -32,7 +32,7 @@ class Student(models.Model):
     )
     birthday = models.DateField(default=datetime.date.today, null=True, blank=True)
 
-    # we use validation class here
+    # we use validation class here because we'll send parameters
     email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST), validate_unique_email])
     phone = models.CharField(
         max_length=16,
@@ -41,17 +41,6 @@ class Student(models.Model):
                     validate_unique_phone_number],
         error_messages={'max_length': 'Phone number is too long, must be 12 digits!'}
     )
-
-    # # to set up group as 'one-to-many' -- ASK TEACHER !!!--
-    # group = models.ForeignKey(
-    #     'GroupST',
-    #     null=True,
-    #     on_delete=models.PROTECT,
-    #     verbose_name='Group',
-    # )
-
-    # we use validation function here
-    # email = models.EmailField(validators=[valid_email_domain(VALID_DOMAIN_LIST)])
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -77,7 +66,3 @@ class Student(models.Model):
                 st.save()
             except Exception:
                 print(f'Incorrect data {first_name} {last_name} {email} {birthday} {phone}')
-
-
-# class GroupST(Group):
-#     pass

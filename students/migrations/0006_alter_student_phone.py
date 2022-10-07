@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 import students.validators
+import core.validators
 
 
 class Migration(migrations.Migration):
@@ -14,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='student',
             name='phone',
-            field=models.CharField(error_messages={'max_length': 'Phone number is too long, must be 12 digits!'}, max_length=16, validators=[students.validators.min_len_phone_number_validate, students.validators.ValidateOperatorCode('38(067)', '38(098)', '38(063)', '38(050)', '38(039)', '38(093)', '38(096)', '38(097)', '38(068)', '38(092)', '38(094)', '38(091)', '38(066)', '38(095)', '38(099)'), students.validators.validate_unique_phone_number], verbose_name='phone number'),
+            field=models.CharField(error_messages={'max_length': 'Phone number is too long, must be 12 digits!'}, max_length=16, validators=[core.validators.min_len_phone_number_validate, core.validators.ValidateOperatorCode('38(067)', '38(098)', '38(063)', '38(050)', '38(039)', '38(093)', '38(096)', '38(097)', '38(068)', '38(092)', '38(094)', '38(091)', '38(066)', '38(095)', '38(099)'), students.validators.validate_unique_phone_number], verbose_name='phone number'),
         ),
     ]

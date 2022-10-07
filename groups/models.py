@@ -1,9 +1,9 @@
 import datetime
 
+from core.validators import validate_start_date
+
 from django.core.validators import MinLengthValidator
 from django.db import models
-
-from groups.validators import validate_start_date
 
 
 class Group(models.Model):
