@@ -9,8 +9,8 @@
         {% csrf_token %}
         <table>
             {{ form.as_table }}
-        </table>
-        <input type="submit" value="Update">
-        <a href="{% url 'groups:list' %}">Cancel</a>
+        </table><br>
+        <input class="btn btn-outline-dark btn-sm" type="submit" value="Update">
+        <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Cancel</a>
     </form>
 {% endblock %}
