@@ -2,10 +2,12 @@ from core.utils import clean_phone_number
 
 from django import forms
 
+from django_filters import FilterSet
+
 from teachers.models import Teacher
 
 
-class CreateTeacherForm(forms.ModelForm):
+class BaseTeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = [
@@ -19,6 +21,11 @@ class CreateTeacherForm(forms.ModelForm):
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'})
         }
+
+
+class CreateTeacherForm(BaseTeacherForm):
+    class Meta(BaseTeacherForm.Meta):
+        pass
 
     def clean_first_name(self):
         value = self.cleaned_data.get('first_name')
@@ -39,17 +46,16 @@ class CreateTeacherForm(forms.ModelForm):
         return valid_number
 
 
-class UpdateTeacherForm(forms.ModelForm):
+class UpdateTeacherForm(BaseTeacherForm):
+    class Meta(BaseTeacherForm.Meta):
+        pass
+
+
+class TeacherFilterForm(FilterSet):
     class Meta:
         model = Teacher
-        fields = [
-            'first_name',
-            'last_name',
-            'birthday',
-            'subject',
-            'email',
-            'phone',
-        ]
-        widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'})
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith'],
+            'subject': ['icontains'],
         }

@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Detail of {{ group.group_name }}
+    Detail of {{ group.first_name }}
 {% endblock %}
 
 {% block content %}
+    <div class="row">
+    <div class="col-4"></div>
+    <div class="col-5">
         <div class="row">
             <div class="col-5">
         <div class="card" style="width: 18rem;">
@@ -13,11 +16,16 @@
         </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">{{ group.group_description }}</li>
-            <li class="list-group-item">{{ group.group_creation_date }}</li>
+            <li class="list-group-item">Created {{ group.group_creation_date }}</li>
+            <li class="list-group-item">Start date{{ group.start_date }}</li>
+            <li class="list-group-item">End date {{ group.end_date }}</li>
           </ul>
         </div>
         </div>
         </div>
         <br>
         <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Back</a>
+    </div>
+    <div class="col-4"></div>
+    </div>
 {% endblock %}
