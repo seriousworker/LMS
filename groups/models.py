@@ -14,7 +14,7 @@ class Group(models.Model):
         error_messages={'min_length': 'group_name field value less than two symbols'},
     )
     group_creation_date = models.DateField(
-        default=datetime.date.today,
+        auto_now_add=True,
         validators=[validate_start_date],
     )
     group_description = models.TextField(
@@ -23,6 +23,14 @@ class Group(models.Model):
         null=True,
         blank=True,
     )
+    start_date = models.DateField(
+        default=datetime.datetime.utcnow,
+    )
+    end_date = models.DateField(
+        null=True,
+        blank=True,
+    )
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'group {self.group_name} created {self.group_creation_date}, description {self.group_description}'

@@ -3,23 +3,27 @@ from django import forms
 from groups.models import Group
 
 
-class CreateGroupForm(forms.ModelForm):
+class GroupBaseForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = [
             'group_name',
-            'group_description'
+            'group_description',
+            'start_date',
+            'end_date',
         ]
 
-
-class UpdateGroupForm(forms.ModelForm):
-    class Meta:
-        model = Group
-        fields = [
-            'group_name',
-            'group_creation_date',
-            'group_description'
-        ]
         widgets = {
-            'group_creation_date': forms.DateInput(attrs={'type': 'date'})
+            'start_date': forms.DateInput(attrs={'type': 'date'}),
+            'end_date': forms.DateInput(attrs={'type': 'date'}),
         }
+
+
+class CreateGroupForm(GroupBaseForm):
+    class Meta(GroupBaseForm.Meta):
+        pass
+
+
+class UpdateGroupForm(GroupBaseForm):
+    class Meta(GroupBaseForm.Meta):
+        pass

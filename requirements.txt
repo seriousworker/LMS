@@ -28,3 +28,9 @@ Faker==14.2.0
 
 # module which parses and validates HTTP request query string
 webargs==8.2.0
+
+# renders django forms in proper behavior
+django-crispy-forms==1.14.0
+
+# django component to filter down a queryset based on a models fields
+django-filter==22.1
