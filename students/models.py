@@ -11,6 +11,8 @@ from django.db import models
 
 from faker import Faker
 
+from groups.models import Group
+
 from .validators import validate_unique_email
 from .validators import validate_unique_phone_number
 
@@ -43,6 +45,14 @@ class Student(models.Model):
                     validate_unique_phone_number],
         error_messages={'max_length': 'Phone number is too long, must be 12 digits!'}
     )
+    group = models.ForeignKey(
+        Group,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='students'
+    )
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def get_age(self):
         return relativedelta(datetime.date.today(), self.birthday).years

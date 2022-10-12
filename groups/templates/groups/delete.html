@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Delete group {{ group.group_name }}
+    Delete student {{ group.group_name }}
 {% endblock %}
 
 {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        <p>Do you really want to remove {{ group.group_name }}</p>
-        <input class="btn btn-outline-dark btn-sm" type="submit" value="Delete">
-        <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Cancel</a>
-    </form>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-5">
+            <form method="post">
+                    {% csrf_token %}
+                <p>Do you really want remove "{{ group.group_name }}"?</p>
+                <input class="btn btn-outline-danger btn-sm" type="submit" value="Delete">
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Cancel</a>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
 {% endblock %}
