@@ -1,6 +1,8 @@
 
 import datetime
 
+from dateutil.relativedelta import relativedelta
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -44,6 +46,9 @@ class Teacher(models.Model):
         error_messages={'max_length': 'Phone number is too long, must be 12 digits!',
                         'min_length': 'Phone number is too short, must be 12 digits!'}
     )
+
+    def get_age(self):
+        return relativedelta(datetime.date.today(), self.birthday).years
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

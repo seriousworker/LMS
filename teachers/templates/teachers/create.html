@@ -6,11 +6,12 @@
 
 {% block content %}
     <form method="post">
-        {%  csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Create">
-        <a href="{% url 'teachers:list' %}">Cancel</a>
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+        <br>
+        <input class="btn btn-outline-dark btn-sm" type="submit" value="Create">
+        <a class="btn btn-outline-dark btn-sm" href="{% url 'teachers:list' %}">Cancel</a>
     </form>
 {% endblock %}
