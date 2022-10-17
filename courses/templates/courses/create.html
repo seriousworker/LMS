@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_filters %}
+
+{% block title %}
+    Create new course
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5">
+             <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-outline-dark btn-sm" type="submit" value="Create">
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'courses:list' %}">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

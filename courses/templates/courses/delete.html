@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Delete student {{ group.group_name }}
+    Delete course {{ course.course_title }}
 {% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-7">
             <form method="post">
                     {% csrf_token %}
-                <p>Do you really want to remove group "{{ group.group_name }}", <font color="#ff0000">it will remove all related students?</font></p>
+                <p>Do you really want to remove course "{{ course.course_title }}",
+                    <font color="#ff0000">it will remove related group and students?</font></p>
                 <input class="btn btn-outline-danger btn-sm" type="submit" value="Delete">
-                <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Cancel</a>
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'courses:list' %}">Cancel</a>
             </form>
         </div>
         <div class="col-3"></div>

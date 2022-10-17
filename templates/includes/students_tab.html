@@ -5,11 +5,14 @@
         <th>First name</th>
         <th>Last name</th>
         <th style="width: 55px;">Age</th>
+        {% if group_on %}
+            <th style="width: 170px;">Course</th>
+            <th style="width: 120px;">Group</th>
+        {% endif %}
         <th style="width: 55px;">Headman</th>
         {% if group_on %}
-            <th style="width: 150px;">Group</th>
-            <th style="width: 85px"><i class="bi bi-pencil-fill"></i></th>
-            <th style="width: 85px"><i class="bi bi-trash3-fill"></i></th>
+            <th style="width: 85px;"><i class="bi bi-pencil-fill"></i></th>
+            <th style="width: 85px;"><i class="bi bi-trash3-fill"></i></th>
         {% endif %}
     </tr>
     </thead>
@@ -25,17 +28,23 @@
                 {% endif %}
             </td>
             <td>
-                {% if student.headman_group %}
-                    <i class="bi bi-check2-circle"></i></td>
-                {% endif %}
                 {% if group_on %}
+                   {{ student.group.course.course_title }}
+                {% endif %}
+            </td>
             <td>
-                {% if student.group.group_name  %}
+                {% if group_on %}
                     {{ student.group.group_name }}
                 {% endif %}
             </td>
-            <td><a class="btn btn-outline-primary btn-sm" href="{% url 'students:update' student.pk %}">Edit</a></td>&nbsp;
-            <td><a class="btn btn-outline-danger btn-sm" href="{% url 'students:delete' student.pk %}">Delete</a></td>
+            <td>
+                {% if student.headman_group %}
+                    <i class="bi bi-check2-circle"></i>
+                {% endif %}
+            </td>
+            {% if group_on %}
+                <td><a class="btn btn-outline-primary btn-sm" href="{% url 'students:update' student.pk %}">Edit</a></td>&nbsp;
+                <td><a class="btn btn-outline-danger btn-sm" href="{% url 'students:delete' student.pk %}">Delete</a></td>
             {% endif %}
         </tr>
     {% endfor %}

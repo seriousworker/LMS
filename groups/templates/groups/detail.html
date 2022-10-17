@@ -12,9 +12,10 @@
             <div class="col-5">
         <div class="card" style="width: 18rem;">
             <div class="card-header">
-        <a href="{% url 'groups:update' group.pk %}">{{ group.group_name }}</a>
+            <div>Group <a href="{% url 'groups:update' group.pk %}"> {{ group.group_name }}</a></div>
         </div>
           <ul class="list-group list-group-flush">
+            <li class="list-group-item">Course {{ group.course.course_title }}</li>
             <li class="list-group-item">Created {{ group.group_creation_date }}</li>
             <li class="list-group-item">Start date{{ group.start_date }}</li>
             <li class="list-group-item">End date {% if group.end_date %}{{ group.end_date }}{% endif %}</li>

@@ -39,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'core.apps.CoreConfig',
+    'courses.apps.CoursesConfig',
+    'groups.apps.GroupsConfig',
+    'students.apps.StudentsConfig',
+    'teachers.apps.TeachersConfig',
+
     'django_extensions',
     'debug_toolbar',
-    'students.apps.StudentsConfig',
-    'groups.apps.GroupsConfig',
-    'teachers.apps.TeachersConfig',
     'crispy_forms',
     'crispy_bootstrap5',
 ]
@@ -66,8 +70,9 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             path.join(BASE_DIR, 'templates'),
-            path.join(BASE_DIR, 'students'),
+            path.join(BASE_DIR, 'courses'),
             path.join(BASE_DIR, 'groups'),
+            path.join(BASE_DIR, 'students'),
             path.join(BASE_DIR, 'teachers'),
         ],
         'APP_DIRS': True,

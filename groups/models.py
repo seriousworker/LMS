@@ -32,9 +32,17 @@ class Group(models.Model):
         blank=True,
         related_name='headman_group',
     )
+    course = models.OneToOneField(
+        'courses.Course',
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='group_of_course',
+    )
 
     def __str__(self):
         return f'group {self.group_name}, created {self.group_creation_date}'
 
     class Meta:
+        verbose_name = 'Group'
+        verbose_name_plural = 'Groups'
         db_table = 'groups'
