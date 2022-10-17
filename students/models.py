@@ -58,7 +58,10 @@ class Student(models.Model):
         return relativedelta(datetime.date.today(), self.birthday).years
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        if self.group is None:
+            return f'{self.first_name} {self.last_name}'
+        else:
+            return f'{self.first_name} {self.last_name} ({self.group.group_name})'
 
     class Meta:
         db_table = 'students'

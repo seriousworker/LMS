@@ -15,10 +15,9 @@
         <a href="{% url 'groups:update' group.pk %}">{{ group.group_name }}</a>
         </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{ group.group_description }}</li>
             <li class="list-group-item">Created {{ group.group_creation_date }}</li>
             <li class="list-group-item">Start date{{ group.start_date }}</li>
-            <li class="list-group-item">End date {{ group.end_date }}</li>
+            <li class="list-group-item">End date {% if group.end_date %}{{ group.end_date }}{% endif %}</li>
           </ul>
         </div>
         </div>

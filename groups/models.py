@@ -17,12 +17,6 @@ class Group(models.Model):
         auto_now_add=True,
         validators=[validate_start_date],
     )
-    group_description = models.TextField(
-        max_length=300,
-        verbose_name='Group description',
-        null=True,
-        blank=True,
-    )
     start_date = models.DateField(
         default=datetime.datetime.utcnow,
     )
@@ -31,9 +25,16 @@ class Group(models.Model):
         blank=True,
     )
     update_datetime = models.DateTimeField(auto_now=True)
+    headman = models.OneToOneField(
+        'students.Student',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='headman_group',
+    )
 
     def __str__(self):
-        return f'group {self.group_name} created {self.group_creation_date}, description {self.group_description}'
+        return f'group {self.group_name}, created {self.group_creation_date}'
 
     class Meta:
         db_table = 'groups'

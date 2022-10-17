@@ -29,8 +29,8 @@
     <div class="row">
     <table class="table table-striped table-hover">
     <thead>
-    <tr>
-        <th>Number</th>
+    <tr align="center">
+        <th>Nr</th>
         <th>First name</th>
         <th>Last name</th>
         <th>Subject</th>
@@ -40,7 +40,7 @@
     </thead>
     <tbody>
     {% for teacher in filter_form.qs %}
-        <tr>
+        <tr align="center">
             <td>{{ forloop.counter }}</td>
             <td><a href="{% url 'teachers:detail' teacher.pk %}">{{ teacher.first_name }}</a></td>
             <td>{{ teacher.last_name }}</td>
