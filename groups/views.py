@@ -1,10 +1,11 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
+from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
-
 
 from groups.forms import CreateGroupForm
 # from groups.forms import GroupFilterForm
@@ -29,6 +30,7 @@ from students.models import Student
 class ListGroupView(ListView):
     model = Group
     template_name = 'templates/groups/list.html'
+    extra_context = {'title': 'List of groups'}
 
 
 def create_group(request):
@@ -43,10 +45,9 @@ def create_group(request):
     return render(request, 'groups/create.html', {'form': form})
 
 
-def detail_group(request, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-
-    return render(request, 'groups/detail.html', {'group': group})
+class DetailGroupView(DetailView):
+    model = Group
+    template_name = 'groups/detail.html'
 
 
 class UpdateGroupView(UpdateView):
@@ -80,11 +81,7 @@ class UpdateGroupView(UpdateView):
         return response
 
 
-def delete_group(request, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-
-    if request.method == 'POST':
-        group.delete()
-        return HttpResponseRedirect(reverse('groups:list'))
-
-    return render(request, 'groups/delete.html', {'group': group})
+class DeleteGroupView(DeleteView):
+    model = Group
+    success_url = reverse_lazy('groups:list')
+    template_name = 'groups/delete.html'

@@ -1,6 +1,7 @@
 import random
 
 from core.models import PersonModel
+from core.validators import valid_email_domain
 
 from django.db import models
 
@@ -13,6 +14,9 @@ class Student(PersonModel):
         on_delete=models.CASCADE,
         null=True,
         related_name='students'
+    )
+    email = models.EmailField(
+        validators=[valid_email_domain],
     )
 
     def __str__(self):
