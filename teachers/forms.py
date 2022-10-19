@@ -14,7 +14,7 @@ class BaseTeacherForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'subject',
+            'salary',
             'email',
             'phone',
         ]
@@ -57,5 +57,4 @@ class TeacherFilterForm(FilterSet):
         fields = {
             'first_name': ['exact', 'icontains'],
             'last_name': ['exact', 'startswith'],
-            'subject': ['icontains'],
         }
