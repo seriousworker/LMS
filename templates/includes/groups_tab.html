@@ -17,7 +17,7 @@
     {% for group in objects_list %}
         <tr align="center">
             <td>{{ forloop.counter }}</td>
-            <td><a href="{%  url 'groups:detail' group.pk %}">{{ group.group_name }}</a></td>
+            <td><a href="{% url 'groups:detail' group.pk %}">{{ group.group_name }}</a></td>
             <td>
                 {% if group.headman %}
                     {{ group.headman.first_name }} {{ group.headman.last_name }}

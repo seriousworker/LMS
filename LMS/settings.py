@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'groups.apps.GroupsConfig',
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
+
+    'accounts.apps.AccountsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -110,6 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 3
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -157,3 +163,5 @@ if DEBUG:
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+EMAIL_PORT = 1025

@@ -15,14 +15,14 @@
     {% for course in objects_list %}
         <tr align="center">
             <td>{{ forloop.counter }}</td>
-            <td><a href="{%  url 'courses:detail' course.pk %}">{{ course.course_title }}</a></td>
+            <td><a href="{% url 'courses:detail' course.pk %}">{{ course.course_title }}</a></td>
             <td>{% if course.course_level %}
-                    {{ course.get_course_level_display }}
-                {% endif %}
+                {{ course.get_course_level_display }}
+            {% endif %}
             </td>
             <td>
-                {%  if course.course_place %}
-                    {{ course.get_course_place_display}}
+                {% if course.course_place %}
+                    {{ course.get_course_place_display }}
                 {% endif %}
             </td>
             <td>

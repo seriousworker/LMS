@@ -10,13 +10,15 @@
     <div class="row">
         <div class="col-3"></div>
         <div class="col-5">
-             <form method="post">
+            <form method="post">
                 {% csrf_token %}
-                 <table>
-                     {{ form|crispy }}
-                 </table>
-                <input class="btn btn-outline-dark btn-sm" type="submit" value="Update">
-                <a class="btn btn-outline-dark btn-sm" href="{% url 'teachers:list' %}">Cancel</a>
+                <table>
+                    {{ form|crispy }}
+                </table>
+                <div class="mt-3 text-center">
+                    <input class="btn btn-outline-dark btn-sm" type="submit" value="Update">
+                    <a class="btn btn-outline-dark btn-sm" href="{% url 'teachers:list' %}">Cancel</a>
+                </div>
             </form>
         </div>
         <div class="col-3"></div>

@@ -6,26 +6,28 @@
 
 {% block content %}
     <div class="row">
-    <div class="col-4"></div>
-    <div class="col-5">
-        <div class="row">
-            <div class="col-5">
-        <div class="card" style="width: 18rem;">
-            <div class="card-header">
-            <div>Group <a href="{% url 'groups:update' group.pk %}"> {{ group.group_name }}</a></div>
+        <div class="col-4"></div>
+        <div class="col-5">
+            <div class="row">
+                <div class="col-5">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            <div>Group <a href="{% url 'groups:update' group.pk %}"> {{ group.group_name }}</a></div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                Course {{ group.course.course_title }} {{ group.course.get_course_level_display }}</li>
+                            <li class="list-group-item">Created {{ group.created_datetime }}</li>
+                            <li class="list-group-item">Start date{{ group.start_date }}</li>
+                            <li class="list-group-item">End date
+                                {% if group.end_date %}{{ group.end_date }}{% endif %}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Back</a>
         </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Course {{ group.course.course_title }} {{ group.course.get_course_level_display }}</li>
-            <li class="list-group-item">Created {{ group.created_datetime }}</li>
-            <li class="list-group-item">Start date{{ group.start_date }}</li>
-            <li class="list-group-item">End date {% if group.end_date %}{{ group.end_date }}{% endif %}</li>
-          </ul>
-        </div>
-        </div>
-        </div>
-        <br>
-        <a class="btn btn-outline-dark btn-sm" href="{% url 'groups:list' %}">Back</a>
-    </div>
-    <div class="col-4"></div>
+        <div class="col-4"></div>
     </div>
 {% endblock %}
