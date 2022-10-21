@@ -20,7 +20,7 @@
                 <div class="accordion-body">
                     <div class="col-3">
                         <form method="get">
-                            {{ filter_form.form|crispy }}
+                            {{ object_list.form|crispy }}
                             <input class="btn btn-outline-dark btn-sm" type="submit" value="Find">
                         </form>
                     </div>
@@ -29,31 +29,12 @@
         </div>
     </div>
     <div class="row">
-        <table class="table table-striped table-hover">
-            <thead>
-            <tr align="center">
-                <th>Nr</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Salary</th>
-                <th><i class="bi bi-pencil-fill"></i></th>
-                <th><i class="bi bi-trash3-fill"></i></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for teacher in filter_form.qs %}
-                <tr align="center">
-                    <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'teachers:detail' teacher.pk %}">{{ teacher.first_name }}</a></td>
-                    <td>{{ teacher.last_name }}</td>
-                    <td>{{ teacher.salary }}</td>
-                    <td><a class="btn btn-outline-primary btn-sm" href="{% url 'teachers:update' teacher.pk %}">Edit</a>
-                    </td>&nbsp;
-                    <td><a class="btn btn-outline-danger btn-sm"
-                           href="{% url 'teachers:delete' teacher.pk %}">Delete</a></td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        {% with objects_list=object_list.qs %}
+            {% if objects_list %}
+                {% include 'includes/teachers_tab.html' %}
+            {% else %}
+                <h5 align="center" style="padding: 50px">There are no any created groups, please create a group!</h5>
+            {% endif %}
+        {% endwith %}
     </div>
 {% endblock %}

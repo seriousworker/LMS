@@ -20,7 +20,7 @@
                 <div class="accordion-body">
                     <div class="col-3">
                         <form method="get">
-                            {{ filter_form.form|crispy }}
+                            {{ object_list.form|crispy }}
                             <input class="btn btn-outline-dark btn-sm" type="submit" value="Find">
                         </form>
                     </div>
@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="row">
-        {% with objects_list=filter_form.qs %}
+        {% with objects_list=object_list.qs %}
             {% if objects_list %}
                 {% include 'includes/courses_tab.html' %}
             {% else %}
