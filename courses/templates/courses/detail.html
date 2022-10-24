@@ -6,33 +6,38 @@
 
 {% block content %}
     <div class="row">
-    <div class="col-3"></div>
-    <div class="col-6">
-        <div class="row">
-            <div class="col-6">
-        <div class="card" style="width: 35rem;">
-            <div class="card-header">
-        <a href="{% url 'courses:update' course.pk %}">{{ course.course_title }}</a>
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card" style="width: 35rem;">
+                        <div class="card-header">
+                            <a href="{% url 'courses:update' course.pk %}">{{ course.course_title }}</a>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Place {{ course.get_course_place_display }}</li>
+                            <li class="list-group-item">Level {{ course.get_course_level_display }}</li>
+                            <li class="list-group-item">Teaching plan <br> {{ course.course_description }}</li>
+                            <li class="list-group-item">Duration {{ course.course_duration }} lessons</li>
+                            <li class="list-group-item">Start {% if course.course_start %}
+                                {{ course.course_start }}
+                            {% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                Price {{ course.course_price }} {{ course.get_course_price_currency_display }}</li>
+                            <li class="list-group-item">Conditions of
+                                enrollment {{ course.course_enrollment_condition }} points
+                            </li>
+                            <li class="list-group-item">Conditions of
+                                graduation {{ course.course_graduation_condition }} points
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <a class="btn btn-outline-dark btn-sm" href="{% url 'courses:list' %}">Back</a>
         </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Place {{ course.get_course_place_display }}</li>
-            <li class="list-group-item">Level {{ course.get_course_level_display }}</li>
-            <li class="list-group-item">Teaching plan <br> {{ course.course_description }}</li>
-            <li class="list-group-item">Duration {{ course.course_duration }} lessons</li>
-            <li class="list-group-item">Start {% if course.course_start %}
-                                                    {{ course.course_start }}
-                                              {% endif %}
-            </li>
-            <li class="list-group-item">Price {{ course.course_price }} {{ course.get_course_price_currency_display }}</li>
-            <li class="list-group-item">Conditions of enrollment {{ course.course_enrollment_condition }} points</li>
-            <li class="list-group-item">Conditions of graduation {{ course.course_graduation_condition }} points</li>
-          </ul>
-        </div>
-        </div>
-        </div>
-        <br>
-        <a class="btn btn-outline-dark btn-sm" href="{% url 'courses:list' %}">Back</a>
-    </div>
-    <div class="col-4"></div>
+        <div class="col-4"></div>
     </div>
 {% endblock %}

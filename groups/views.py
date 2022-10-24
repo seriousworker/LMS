@@ -1,30 +1,17 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
 from groups.forms import CreateGroupForm
-# from groups.forms import GroupFilterForm
+from groups.forms import GroupFilterForm
 from groups.forms import UpdateGroupForm
 from groups.models import Group
 
 from students.models import Student
-
-
-# def get_group(request):
-#     groups = Group.objects.select_related('headman')
-#
-#     filter_form = GroupFilterForm(data=request.GET, queryset=groups)
-#     return render(request,
-#                   template_name='templates/groups/list.html',
-#                   context={
-#                       'title': 'List of groups',
-#                       'filter_form': filter_form,
-#                   })
 
 
 class ListGroupView(ListView):
@@ -32,25 +19,36 @@ class ListGroupView(ListView):
     template_name = 'templates/groups/list.html'
     extra_context = {'title': 'List of groups'}
 
+    def get_queryset(self):
+        groups = Group.objects.select_related('headman')
+        filter_form = GroupFilterForm(data=self.request.GET, queryset=groups)
 
-def create_group(request):
-    if request.method == 'GET':
-        form = CreateGroupForm()
-    if request.method == 'POST':
-        form = CreateGroupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('groups:list'))
-
-    return render(request, 'groups/create.html', {'form': form})
+        return filter_form
 
 
-class DetailGroupView(DetailView):
+class CreateGroupView(LoginRequiredMixin, CreateView):
+    model = Group
+    form_class = CreateGroupForm
+    success_url = reverse_lazy('groups:list')
+    template_name = 'groups/create.html'
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        group = form.save()
+        students = form.cleaned_data['students']
+        for student in students:
+            student.group = group
+            student.save()
+
+        return response
+
+
+class DetailGroupView(LoginRequiredMixin, DetailView):
     model = Group
     template_name = 'groups/detail.html'
 
 
-class UpdateGroupView(UpdateView):
+class UpdateGroupView(LoginRequiredMixin, UpdateView):
     model = Group
     form_class = UpdateGroupForm
     success_url = reverse_lazy('groups:list')
@@ -81,7 +79,7 @@ class UpdateGroupView(UpdateView):
         return response
 
 
-class DeleteGroupView(DeleteView):
+class DeleteGroupView(LoginRequiredMixin, DeleteView):
     model = Group
     success_url = reverse_lazy('groups:list')
     template_name = 'groups/delete.html'

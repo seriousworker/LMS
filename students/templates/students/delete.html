@@ -9,10 +9,12 @@
         <div class="col-4"></div>
         <div class="col-5">
             <form method="post">
-                    {% csrf_token %}
-                <p>Do you really want to remove "{{ student.first_name }} {{ student.last_name }}"?</p>
-                <input class="btn btn-outline-danger btn-sm" type="submit" value="Delete">
-                <a class="btn btn-outline-dark btn-sm" href="{% url 'students:list' %}">Cancel</a>
+                {% csrf_token %}
+                <div class="mt-3 text-center">
+                    <p>Do you really want to remove "{{ student.first_name }} {{ student.last_name }}"?</p>
+                    <input class="btn btn-outline-danger btn-sm" type="submit" value="Delete">
+                    <a class="btn btn-outline-dark btn-sm" href="{% url 'students:list' %}">Cancel</a>
+                </div>
             </form>
         </div>
         <div class="col-3"></div>
