@@ -1,0 +1,43 @@
+<table class="table table-striped table-hover">
+    <thead>
+    <tr align="center">
+        <th>Nr</th>
+        <th>Course title</th>
+        <th>Level</th>
+        <th>Place</th>
+        <th>Start date</th>
+        <th>Price</th>
+        <th><i class="bi bi-pencil-fill"></i></th>
+        <th><i class="bi bi-trash3-fill"></i></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for course in objects_list %}
+        <tr align="center">
+            <td>{{ forloop.counter }}</td>
+            <td><a href="{%  url 'courses:detail' course.pk %}">{{ course.course_title }}</a></td>
+            <td>{% if course.course_level %}
+                    {{ course.get_course_level_display }}
+                {% endif %}
+            </td>
+            <td>
+                {%  if course.course_place %}
+                    {{ course.get_course_place_display}}
+                {% endif %}
+            </td>
+            <td>
+                {% if course.course_start %}
+                    {{ course.course_start }}
+                {% endif %}
+            </td>
+            <td>
+                {% if course.course_price %}
+                    {{ course.course_price }} {{ course.get_course_price_currency_display }}
+                {% endif %}
+            </td>
+            <td><a class="btn btn-outline-primary btn-sm" href="{% url 'courses:update' course.pk %}">Edit</a></td>
+            <td><a class="btn btn-outline-danger btn-sm" href="{% url 'courses:delete' course.pk %}">Delete</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

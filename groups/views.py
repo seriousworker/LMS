@@ -10,7 +10,7 @@ from groups.models import Group
 
 
 def get_group(request):
-    groups = Group.objects.all()
+    groups = Group.objects.select_related('headman')
 
     filter_form = GroupFilterForm(data=request.GET, queryset=groups)
     return render(request,
@@ -26,7 +26,7 @@ def create_group(request):
         form = CreateGroupForm()
     if request.method == 'POST':
         form = CreateGroupForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('groups:list'))
 
@@ -45,7 +45,7 @@ def update_group(request, group_id):
     if request.method == 'GET':
         form = UpdateGroupForm(instance=group)
     if request.method == 'POST':
-        form = UpdateGroupForm(request.POST, instance=group)
+        form = UpdateGroupForm(instance=group, data=request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('groups:list'))
