@@ -56,25 +56,29 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Account
-                            </a>
-                            <ul class="dropdown-menu">
-                                {% if user.is_authenticated %}
-                                    <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="{% url 'accounts:profile_view' %}">Profile</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a>
+                                </li>
                                 <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
-                                {% else %}
+                            {% else %}
                                 <li><a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a></li>
                                 <li><a class="dropdown-item" href="{% url 'accounts:register' %}">Register</a></li>
-                                {% endif %}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
