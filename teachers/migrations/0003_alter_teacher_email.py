@@ -7,12 +7,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('students', '0002_alter_student_email'),
+        ('teachers', '0002_alter_teacher_email'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='student',
+            model_name='teacher',
             name='email',
             field=models.EmailField(error_messages={'value_error': 'Entered email domain not valid'}, max_length=254, validators=[core.validators.valid_email_domain]),
         ),

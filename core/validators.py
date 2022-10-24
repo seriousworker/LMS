@@ -7,13 +7,13 @@ from .utils import clean_phone_number
 
 
 def valid_email_domain(value):
-    valid_domains = ['@gmail.com', '@yahoo.com']
+    valid_domains = ['@gmail.com', '@yahoo.com', '@test.com']
 
     for domain in valid_domains:
         if domain in value:
             break
     else:
-        raise ValidationError(f'Email <{value}> is incorrect address.')
+        raise ValidationError('Entered domain name is not valid!')
 
 
 @deconstructible

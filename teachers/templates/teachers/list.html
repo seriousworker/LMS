@@ -33,7 +33,7 @@
         <th>Nr</th>
         <th>First name</th>
         <th>Last name</th>
-        <th>Subject</th>
+        <th>Salary</th>
         <th><i class="bi bi-pencil-fill"></i></th>
         <th><i class="bi bi-trash3-fill"></i></th>
     </tr>
@@ -44,7 +44,7 @@
             <td>{{ forloop.counter }}</td>
             <td><a href="{% url 'teachers:detail' teacher.pk %}">{{ teacher.first_name }}</a></td>
             <td>{{ teacher.last_name }}</td>
-            <td>{{ teacher.subject }}</td>
+            <td>{{ teacher.salary }}</td>
             <td><a class="btn btn-outline-primary btn-sm" href="{% url 'teachers:update' teacher.pk %}">Edit</a></td>&nbsp;
             <td><a class="btn btn-outline-danger btn-sm" href="{% url 'teachers:delete' teacher.pk %}">Delete</a></td>
         </tr>

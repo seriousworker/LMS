@@ -40,16 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_extensions',
+    'debug_toolbar',
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     'core.apps.CoreConfig',
     'courses.apps.CoursesConfig',
     'groups.apps.GroupsConfig',
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
-
-    'django_extensions',
-    'debug_toolbar',
-    'crispy_forms',
-    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [

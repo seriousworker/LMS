@@ -1,21 +1,19 @@
 import datetime
 
-from core.validators import validate_start_date
+from core.models import BaseModel
 
 from django.core.validators import MinLengthValidator
 from django.db import models
 
+from teachers.models import Teacher
 
-class Group(models.Model):
+
+class Group(BaseModel):
     group_name = models.CharField(
         max_length=50,
         verbose_name='Group name',
         validators=[MinLengthValidator(2)],
         error_messages={'min_length': 'group_name field value less than two symbols'},
-    )
-    group_creation_date = models.DateField(
-        auto_now_add=True,
-        validators=[validate_start_date],
     )
     start_date = models.DateField(
         default=datetime.datetime.utcnow,
@@ -24,7 +22,6 @@ class Group(models.Model):
         null=True,
         blank=True,
     )
-    update_datetime = models.DateTimeField(auto_now=True)
     headman = models.OneToOneField(
         'students.Student',
         on_delete=models.SET_NULL,
@@ -38,11 +35,32 @@ class Group(models.Model):
         on_delete=models.CASCADE,
         related_name='group_of_course',
     )
+    teachers = models.ManyToManyField(
+        to=Teacher,
+        null=True,
+        blank=True,
+        related_name='groups'
+    )
 
     def __str__(self):
-        return f'group {self.group_name}, created {self.group_creation_date}'
+        return f'group {self.group_name}, created {self.created_datetime}'
 
     class Meta:
         verbose_name = 'Group'
         verbose_name_plural = 'Groups'
         db_table = 'groups'
+
+    @classmethod
+    def generate_group(cls):
+        groups = [
+            'G1',
+            'G2',
+            'G3',
+            'G4',
+            'G5',
+        ]
+
+        for group in groups:
+            Group.objects.create(
+                group_name=group
+            )

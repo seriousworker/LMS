@@ -29,7 +29,7 @@
                     {{ group.end_date }}
                 {% endif %}
             </td>
-            <td>{{ group.update_datetime }}</td>
+            <td>{{ group.updated_datetime }}</td>
             <td><a class="btn btn-outline-primary btn-sm" href="{% url 'groups:update' group.pk %}">Edit</a></td>
             <td><a class="btn btn-outline-danger btn-sm" href="{% url 'groups:delete' group.pk %}">Delete</a></td>
         </tr>

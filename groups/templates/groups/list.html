@@ -27,7 +27,7 @@
                 </div>
     </div>
     <div class="row">
-       {% with objects_list=filter_form.qs group_on=True %}
+       {% with objects_list=object_list group_on=True %}
             {% if objects_list %}
                 {% include 'includes/groups_tab.html' %}
             {% else %}

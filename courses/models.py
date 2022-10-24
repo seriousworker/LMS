@@ -1,8 +1,10 @@
+from core.models import BaseModel
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
 
-class Course(models.Model):
+class Course(BaseModel):
     course_title = models.CharField(
         max_length=50,
         verbose_name='Title',
