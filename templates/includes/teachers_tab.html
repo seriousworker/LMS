@@ -4,8 +4,9 @@
         <th>Nr</th>
         <th>First name</th>
         <th>Last name</th>
+        <th>Occupation</th>
+        <th>Company</th>
         {% if user.is_authenticated %}
-            <th>Salary</th>
             <th><i class="bi bi-pencil-fill"></i></th>
             <th><i class="bi bi-trash3-fill"></i></th>
         {% endif %}
@@ -23,8 +24,15 @@
                 {% endif %}
             </td>
             <td>{{ teacher.last_name }}</td>
+            <td>{% if teacher.occupation %}
+                {{ teacher.occupation }}
+            {% endif %}
+            </td>
+            <td>{% if teacher.working_place %}
+                {{ teacher.working_place }}
+            {% endif %}
+            </td>
             {% if user.is_authenticated %}
-                <td>{{ teacher.salary }}</td>
                 <td><a class="btn btn-outline-primary btn-sm"
                        href="{% url 'teachers:update' teacher.pk %}">Edit</a>
                 </td>&nbsp;

@@ -7,9 +7,9 @@
 {% block content %}
     <div class="row">
         <div class="col-4"></div>
-        <div class="col-5">
+        <div class="col-6">
             <div class="row">
-                <div class="col-5">
+                <div class="col-6">
                     <div class="card" style="width: 18rem;">
                         <div class="card-header">
                             <a href="{% url 'teachers:update' teacher.pk %}">{{ teacher.last_name }}</a>
@@ -17,12 +17,33 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">{{ teacher.first_name }}</li>
                             <li class="list-group-item">
+                                {% if teacher.occupation %}
+                                    {{ teacher.occupation }} {% if teacher.working_place %}at
+                                    {{ teacher.working_place }}{% endif %}
+                                {% endif %}</li>
+                            <li class="list-group-item">
                                 {{ teacher.birthday }} {% if teacher.get_age %}({{ teacher.get_age }} years
                                 old){% endif %}
                             </li>
-                            <li class="list-group-item">{{ teacher.salary }}</li>
                             <li class="list-group-item">{{ teacher.email }}</li>
                             <li class="list-group-item">{{ teacher.phone }}</li>
+                            <li class="list-group-item">
+                                {% if teacher.linkedin %}
+                                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                                {% endif %}
+                                {% if teacher.telegram %}
+                                    <a href="#"><i class="bi bi-telegram"></i></a>
+                                {% endif %}
+                                {% if teacher.facebook %}
+                                    <a href="#"><i class="bi bi-facebook"></i></a>
+                                {% endif %}
+                                {% if teacher.youtube %}
+                                    <a href="#"><i class="bi bi-youtube"></i></a>
+                                {% endif %}
+                                {% if teacher.instagram %}
+                                    <a href="#"><i class="bi bi-instagram"></i></a>
+                                {% endif %}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -30,6 +51,5 @@
             <br>
             <a class="btn btn-outline-dark btn-sm" href="{% url 'teachers:list' %}">Back</a>
         </div>
-        <div class="col-4"></div>
     </div>
 {% endblock %}

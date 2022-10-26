@@ -14,9 +14,15 @@ class BaseTeacherForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'salary',
             'email',
             'phone',
+            'occupation',
+            'working_place',
+            'linkedin',
+            'telegram',
+            'facebook',
+            'youtube',
+            'instagram',
         ]
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'})
@@ -57,4 +63,5 @@ class TeacherFilterForm(FilterSet):
         fields = {
             'first_name': ['exact', 'icontains'],
             'last_name': ['exact', 'startswith'],
+            'working_place': ['exact'],
         }
