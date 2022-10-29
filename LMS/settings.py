@@ -29,7 +29,6 @@ SECRET_KEY = getenv('DJANGO_SECRET_KEY')
 DEBUG = getenv('DJANGO_DEBUG').rstrip().lower() in ('true', '1', 'on')
 ALLOWED_HOSTS = getenv('DJANGO_ALLOWED_HOSTS').split()
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -64,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'core.middlewares.SimpleMiddleware',
 ]
 
 ROOT_URLCONF = 'LMS.urls'
@@ -92,7 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LMS.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -102,7 +101,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -124,7 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
