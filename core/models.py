@@ -75,3 +75,39 @@ class PersonModel(BaseModel):
     def generator(cls, cnt):
         for _ in range(cnt):
             cls._generate()
+
+
+class SocialLinksBase(models.Model):
+    linkedin = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True,
+        db_column='LinkedIn',
+    )
+    telegram = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        db_column='Telegram',
+    )
+    facebook = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        db_column='Facebook'
+    )
+    youtube = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        db_column='YouTube'
+    )
+    instagram = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        db_column='Instagram'
+    )
+
+    class Meta:
+        abstract = True

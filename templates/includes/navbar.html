@@ -66,6 +66,10 @@
                             {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url 'accounts:profile_view' %}">Profile</a>
                                 </li>
+                                {% if user.is_staff %}
+                                    <li><a class="dropdown-item" href="/admin/">Admin page</a>
+                                    </li>
+                                {% endif %}
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

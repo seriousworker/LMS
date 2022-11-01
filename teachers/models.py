@@ -2,14 +2,26 @@ import datetime
 from random import randint
 
 from core.models import PersonModel
+from core.models import SocialLinksBase
 
 from dateutil.relativedelta import relativedelta
 
 from django.db import models
 
 
-class Teacher(PersonModel):
-    salary = models.PositiveIntegerField(default=10_000)
+class Teacher(PersonModel, SocialLinksBase):
+    salary = models.PositiveIntegerField(null=True, blank=True)
+    occupation = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+    )
+    working_place = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True,
+        db_column='company'
+    )
 
     def get_age(self):
         return relativedelta(datetime.date.today(), self.birthday).years

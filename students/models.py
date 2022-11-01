@@ -1,6 +1,7 @@
 import random
 
 from core.models import PersonModel
+from core.models import SocialLinksBase
 from core.validators import valid_email_domain
 
 from django.db import models
@@ -34,3 +35,13 @@ class Student(PersonModel):
         groups = Group.objects.all()
         obj.group = random.choice(groups)
         obj.save()
+
+
+class SocialLinks(SocialLinksBase):
+    student = models.OneToOneField(
+        Student,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='student_links',
+    )
