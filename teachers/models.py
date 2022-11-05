@@ -37,5 +37,5 @@ class Teacher(PersonModel, SocialLinksBase):
     @classmethod
     def _generate(cls):
         obj = super()._generate()
-        obj.salary = randint(10_000, 100_000)
+        obj.salary = randint(1_000, 10_000)
         obj.save()
