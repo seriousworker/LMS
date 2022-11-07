@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from groups.models import Group
+from teachers.models import Teacher
 
 
 class StudentInlineTable(admin.TabularInline):
@@ -21,6 +22,22 @@ class StudentInlineTable(admin.TabularInline):
 
     def has_add_permission(self, request, obj):
         return False
+
+
+class TeacherInlineTable(admin.TabularInline):
+    model = Group.teachers.through
+    extra = 0
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def get_readonly_fields(self, request, obj=None):
+        related_teachers = Teacher.objects.filter(pk=request.cleaned_data[pk])
 
 
 @admin.register(Group)
@@ -65,4 +82,4 @@ class GroupAdmin(admin.ModelAdmin):
 
         return form
 
-    inlines = [StudentInlineTable]
+    inlines = [StudentInlineTable, TeacherInlineTable]
